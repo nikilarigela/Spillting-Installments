@@ -1,5 +1,5 @@
 public class Util {
-    public static int totalMonths = 0;
+    public static int totalMonths = 0,paid=0;
     public static int[] array;
 
     /*month - Which moth to be paid
