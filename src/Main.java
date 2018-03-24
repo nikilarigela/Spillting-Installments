@@ -76,43 +76,67 @@ public class Main {
         System.out.println("Want to Adjust the Installment y/n");
         char c = sc.next().charAt(0);
         System.out.println(c);
+        int kachra = 0;
         if (c == 'y' | c == 'Y') {
 
             LOOP:
-            for (int i = 0; i <= Util.totalMonths; i++) {
+            for (int i = 0; i < Util.totalMonths; i++) {
                 System.out.println("Enter " + count + " Installment");
                 paying = sc.nextInt();
+                int nextInstall = Util.array[i];
+                while(paying > Util.totalAmount){
+                    System.out.println("Enter Correct Amount");
+                    paying = sc.nextInt();
+                }
                 paid = paid + paying;
                 payingArray.add(paid);
-                if (Util.install != paying) {
-                    sorted = false;
-                    if (paying > Util.install && sorted == true) {
-                        Util.array[i + 1] = Util.array[i + 1] - (paying - Util.install);
+                System.out.println("nextInstall" + i + " =" + Util.array[i]);
+                if (nextInstall != paying) {
 
-                        sorted = true;
-                    } else {
-                        Util.array[i + 1] = Util.array[i + 1] + (Util.install - paying);
-                        sorted = true;
-                    }
+                    System.out.println("nextInstall" + i + " =" + Util.array[i]);
+                    check(paying, i, nextInstall, kachra);
+
+                }else{
+                    nextInstall = Util.array[i+1];
                 }
-                Util.display();
+
                 count++;
                 System.out.println("Paid Amount" + paid);
                 System.out.println("UNPaid Amount" + (Util.totalAmount - paid));
                 if (paid == Util.totalAmount) {
                     break LOOP;
                 }
+                Util.display();
             }
 
             System.out.println("Paid Structure");
             System.out.println("--------------");
             for (int k = 1; k <= payingArray.size(); k++) {
 
-                System.out.println(k + " Installment " + payingArray.get(k));
+                System.out.println(k + " Installment " + payingArray.get(k - 1));
             }
 
-        }else {
+        } else {
             System.out.println("Thank You");
+        }
+
+    }
+
+    private static void check(int paying, int i, int nextInstall, int kachra) {
+        if (paying > nextInstall) {
+            System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - paying) + ".");
+            Util.array[i] = paying;
+            Util.array[i + 1] = Util.array[i + 1] - (paying - nextInstall);
+            nextInstall = Util.array[i + 1];
+            System.out.println("nextInstall" + i + " =" + Util.array[i]);
+
+
+        } else {
+            Util.array[i] = paying;
+            System.out.println("arry " + i + " =" + Util.array[i + 1] + "+" + (Util.install - paying) + ".");
+            Util.array[i + 1] = Util.array[i + 1] + (nextInstall-paying);
+            nextInstall = Util.array[i + 1];
+            System.out.println("nextInstall" + i + " =" + Util.array[i]);
         }
 
     }
