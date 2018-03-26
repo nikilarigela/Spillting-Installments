@@ -136,7 +136,7 @@ public class Main {
 
             int extra = paying - nextInstall;
             if (extra > nextInstall) {
-                extra = extra / 3;
+                extra = extra / 2;
                 System.out.println("extra"+extra);
                 Util.array[i + 1] = Util.array[i + 1] - extra;
                 System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - extra) + ".");
