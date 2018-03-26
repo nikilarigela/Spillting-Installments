@@ -73,6 +73,7 @@ public class Main {
 //            System.out.println("Your InstallMent Structure");
 //            Util.display();
 //        }
+        int unPiad = Util.totalAmount;
         System.out.println("Want to Adjust the Installment y/n");
         char c = sc.next().charAt(0);
         System.out.println(c);
@@ -80,35 +81,41 @@ public class Main {
         if (c == 'y' | c == 'Y') {
 
             LOOP:
-            for (int i = 0; i < Util.totalMonths; i++) {
-                System.out.println("Enter " + count + " Installment");
-                paying = sc.nextInt();
-                int nextInstall = Util.array[i];
-                while(paying > Util.totalAmount){
-                    System.out.println("Enter Correct Amount");
-                    paying = sc.nextInt();
-                }
-                paid = paid + paying;
-                payingArray.add(paid);
-                System.out.println("nextInstall" + i + " =" + Util.array[i]);
-                if (nextInstall != paying) {
+            try {
 
+
+                for (int i = 0; i < Util.totalMonths; i++) {
+                    System.out.println("Enter " + count + " Installment");
+                    paying = Util.totalAmount + 1;
+                    int nextInstall = Util.array[i];
+                    while (paying > unPiad) {
+                        paying = sc.nextInt();
+                        System.out.println("YOu are Paying too much amount");
+                    }
+                    paid = paid + paying;
+                    payingArray.add(paying);
                     System.out.println("nextInstall" + i + " =" + Util.array[i]);
-                    check(paying, i, nextInstall, kachra);
+                    if (nextInstall != paying) {
 
-                }else{
-                    nextInstall = Util.array[i+1];
-                }
+                        System.out.println("nextInstall" + i + " =" + Util.array[i]);
+                        check(paying, i, nextInstall, kachra);
 
-                count++;
-                System.out.println("Paid Amount" + paid);
-                System.out.println("UNPaid Amount" + (Util.totalAmount - paid));
-                if (paid == Util.totalAmount) {
-                    break LOOP;
+                    } else {
+                        nextInstall = Util.array[i + 1];
+                    }
+
+                    count++;
+                    System.out.println("Paid Amount" + paid);
+                    unPiad = Util.totalAmount - paid;
+                    System.out.println("UNPaid Amount" + (Util.totalAmount - paid));
+                    if (paid == Util.totalAmount) {
+                        break LOOP;
+                    }
+                    Util.display();
                 }
-                Util.display();
+            }catch (Exception e){
+                System.out.println(e);
             }
-
             System.out.println("Paid Structure");
             System.out.println("--------------");
             for (int k = 1; k <= payingArray.size(); k++) {
@@ -124,17 +131,29 @@ public class Main {
 
     private static void check(int paying, int i, int nextInstall, int kachra) {
         if (paying > nextInstall) {
-            System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - paying) + ".");
+
             Util.array[i] = paying;
-            Util.array[i + 1] = Util.array[i + 1] - (paying - nextInstall);
+
+            int extra = paying - nextInstall;
+            if (extra > nextInstall) {
+                extra = extra / 2;
+                System.out.println("extra"+extra);
+                Util.array[i + 1] = Util.array[i + 1] - extra;
+                System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - extra) + ".");
+                Util.array[i + 2] = Util.array[i + 2] - extra;
+                System.out.println("arry " + i + " =" + Util.array[i + 2] + "-" + (Util.install - extra) + ".");
+
+            } else {
+                Util.array[i + 1] = Util.array[i + 1] - extra;
+            }
             nextInstall = Util.array[i + 1];
-            System.out.println("nextInstall" + i + " =" + Util.array[i]);
+            System.out.println("nextInstall" + i + " =" + Util.array[i + 1]);
 
 
         } else {
             Util.array[i] = paying;
             System.out.println("arry " + i + " =" + Util.array[i + 1] + "+" + (Util.install - paying) + ".");
-            Util.array[i + 1] = Util.array[i + 1] + (nextInstall-paying);
+            Util.array[i + 1] = Util.array[i + 1] + (nextInstall - paying);
             nextInstall = Util.array[i + 1];
             System.out.println("nextInstall" + i + " =" + Util.array[i]);
         }
