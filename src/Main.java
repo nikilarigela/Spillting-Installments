@@ -113,14 +113,20 @@ public class Main {
                     }
                     Util.display();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
-            System.out.println("Paid Structure");
-            System.out.println("--------------");
-            for (int k = 1; k <= payingArray.size(); k++) {
+            if (paid != Util.totalAmount) {
+                unPiad = Util.totalAmount - paid;
+                System.out.println("You have due of"+unPiad);
 
-                System.out.println(k + " Installment " + payingArray.get(k - 1));
+            } else {
+                System.out.println("Paid Structure");
+                System.out.println("--------------");
+                for (int k = 1; k <= payingArray.size(); k++) {
+
+                    System.out.println(k + " Installment " + payingArray.get(k - 1));
+                }
             }
 
         } else {
@@ -137,7 +143,7 @@ public class Main {
             int extra = paying - nextInstall;
             if (extra > nextInstall) {
                 extra = extra / 2;
-                System.out.println("extra"+extra);
+                System.out.println("extra" + extra);
                 Util.array[i + 1] = Util.array[i + 1] - extra;
                 System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - extra) + ".");
                 Util.array[i + 2] = Util.array[i + 2] - extra;
