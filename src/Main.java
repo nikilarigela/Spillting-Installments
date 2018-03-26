@@ -137,18 +137,23 @@ public class Main {
 
     private static void check(int paying, int i, int nextInstall, int kachra) {
         if (paying > nextInstall) {
-
+            int t = Util.totalMonths - i;
+            System.out.println("t  "+ t);
             Util.array[i] = paying;
-
+            Methods ob = new Methods();
             int extra = paying - nextInstall;
-            if (extra > nextInstall) {
-                extra = extra / 2;
-                System.out.println("extra" + extra);
-                Util.array[i + 1] = Util.array[i + 1] - extra;
-                System.out.println("arry " + i + " =" + Util.array[i + 1] + "-" + (Util.install - extra) + ".");
-                Util.array[i + 2] = Util.array[i + 2] - extra;
-                System.out.println("arry " + i + " =" + Util.array[i + 2] + "-" + (Util.install - extra) + ".");
+            if (extra >= nextInstall) {
+                int reps = ob.repeats(extra,nextInstall);
+                System.out.println("reps "+reps);
 
+                System.out.println("t  "+ t +"  reps "+reps);
+                extra = extra / reps;
+
+                System.out.println("extra" + extra);
+                for (int j=1;j<=reps;j++ ) {
+                    Util.array[i + j] = Util.array[i + j] - extra;
+                    System.out.println("arry " + j + " =" + Util.array[j + 1] + "-" + (Util.install - extra) + ".");
+                }
             } else {
                 Util.array[i + 1] = Util.array[i + 1] - extra;
             }

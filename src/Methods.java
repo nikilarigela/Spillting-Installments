@@ -61,17 +61,24 @@ public class Methods {
 //        System.out.println(amount80 + ">" + Util.extra);
 
         if (amount20 > nextInstall && nextInstall < amount40) {
+            System.out.println(amount20+"  >" +nextInstall+"&&"+nextInstall+"<"+amount40 );
             return 2;
         } else if (amount40 > nextInstall && nextInstall < amount60) {
+            System.out.println(amount40+"  >" +nextInstall+"&&"+nextInstall+"<"+amount60 );
+
             return 3;
 
         } else if (amount60 > nextInstall && nextInstall < amount80) {
-            return 4;
+            System.out.println(amount60+"  >" +nextInstall+"&&"+nextInstall+"<"+amount80 );
+
+            return 3;
 
         }else if (amount80 > nextInstall && nextInstall < amount99){
-                    return 5;
+            System.out.println(amount80+"  >" +nextInstall+"&&"+nextInstall+"<"+amount99 );
 
-        }else return 1;
+            return 3;
+
+        }else return 2;
     }
 
 //    public void validate() {
